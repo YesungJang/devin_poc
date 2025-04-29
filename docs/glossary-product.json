@@ -1,0 +1,29 @@
+{
+  "terms": [
+    {
+      "term": "SaaS",
+      "ja": "サース（Software as a Service）",
+      "ko": "사스 (Software as a Service)"
+    },
+    {
+      "term": "Cloud Computing",
+      "ja": "クラウドコンピューティング",
+      "ko": "클라우드 컴퓨팅"
+    },
+    {
+      "term": "API",
+      "ja": "API（Application Programming Interface）",
+      "ko": "API (Application Programming Interface)"
+    },
+    {
+      "term": "Dashboard",
+      "ja": "ダッシュボード",
+      "ko": "대시보드"
+    },
+    {
+      "term": "Subscription",
+      "ja": "サブスクリプション",
+      "ko": "구독"
+    }
+  ]
+}
