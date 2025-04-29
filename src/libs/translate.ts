@@ -1,4 +1,3 @@
-import 'openai/shims/node';
 import OpenAI from 'openai';
 import { loadGlossary } from './glossary';
 
