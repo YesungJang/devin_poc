@@ -6,7 +6,8 @@ export default async function ProductPage({
 }: { 
   params: { id: string } 
 }) {
-  const { id } = params;
+  const resolvedParams = await Promise.resolve(params);
+  const { id } = resolvedParams;
   const productData = {
     id,
     name: 'Enterprise Cloud Platform',
