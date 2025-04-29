@@ -3,13 +3,21 @@ import { SupportedLanguage } from './translate';
 
 const isTestEnv = process.env.NODE_ENV === 'test';
 
-const openai = isTestEnv 
+const isDev = process.env.NODE_ENV === 'development' || isTestEnv;
+const hasValidApiKey = (process.env.NEXT_PUBLIC_OPENAI_API_KEY && process.env.NEXT_PUBLIC_OPENAI_API_KEY !== 'your_api_key_here') || 
+                      (process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== 'your_api_key_here');
+
+const openai = isDev || !hasValidApiKey
   ? {
       audio: {
         speech: {
-          create: () => ({
-            arrayBuffer: () => Promise.resolve(new ArrayBuffer(0))
-          })
+          create: () => {
+            console.log('Using mock TTS data');
+            const mockAudioBuffer = new ArrayBuffer(1024);
+            return {
+              arrayBuffer: () => Promise.resolve(mockAudioBuffer)
+            };
+          }
         }
       }
     } as unknown as OpenAI
