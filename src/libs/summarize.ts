@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { SupportedLanguage } from './translate';
+import { SupportedLanguage, setMockLanguage } from './translate';
 
 const isTestEnv = process.env.NODE_ENV === 'test';
 
@@ -58,6 +58,10 @@ export async function generateSummary(
   language: SupportedLanguage
 ): Promise<SummaryResult> {
   try {
+    if (isDev || !hasValidApiKey) {
+      setMockLanguage(language);
+    }
+    
     const languageMap = {
       ja: '日本語',
       ko: '韓国語'
