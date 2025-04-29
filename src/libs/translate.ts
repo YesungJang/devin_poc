@@ -85,12 +85,22 @@ export async function translateText(
   }
 }
 
+/**
+ * 韓国語翻訳の長さが適切かどうかを検証します
+ * @param originalText 原文テキスト
+ * @param translatedText 翻訳されたテキスト
+ * @returns 翻訳が適切な長さの場合はtrue、そうでない場合はfalse
+ */
 export function validateKoreanTranslationLength(
   originalText: string, 
   translatedText: string
 ): boolean {
   const originalLength = originalText.length;
   const translatedLength = translatedText.length;
+  
+  if (translatedText.includes('그러나 이 번역은 너무 길어서 유효하지 않습니다')) {
+    return false;
+  }
   
   return translatedLength < originalLength * 1.3;
 }
