@@ -15,15 +15,7 @@ const openai = isDev || !hasValidApiKey
         completions: {
           create: (params: any) => {
             console.log('Using mock summary data');
-            
-            const systemPrompt = params.messages[0]?.content || '';
-            if (systemPrompt.includes('韓国語')) {
-              mockLanguage = 'ko';
-            } else {
-              mockLanguage = 'ja';
-            }
-            
-            console.log('Selected mock language for summary:', mockLanguage);
+            console.log('Current mock language for summary:', mockLanguage);
             
             const mockSummaries = {
               ja: '- エンタープライズクラウドプラットフォームは、ビジネスの効率的な拡大のための包括的なSaaSソリューションです。\n- 自動化されたワークフロー管理、リアルタイム分析ダッシュボード、安全なAPI統合などの機能を提供します。\n- サブスクリプションモデルで高度なデータ可視化やカスタムレポート作成などのプレミアム機能にアクセスできます。\n- 99.9%のアップタイムと堅牢なセキュリティ対策により、お客様の機密データを保護します。\n- 多くのフォーチュン500企業が導入し、運用コスト削減と生産性向上を実現しています。',
