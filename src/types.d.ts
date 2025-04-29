@@ -1,12 +1,6 @@
 import '@testing-library/jest-dom';
 
 declare global {
-  namespace jest {
-    interface Matchers<R> {
-      toBeInTheDocument(): R;
-    }
-  }
-  
   interface Window {
     URL: {
       createObjectURL: (blob: Blob) => string;
@@ -15,6 +9,14 @@ declare global {
   }
 }
 
-declare module '@testing-library/jest-dom' {
-  export {};
+declare global {
+  namespace jest {
+    interface Matchers<R> {
+      toBeInTheDocument(): R;
+      toHaveAttribute(attr: string, value?: string): R;
+      toHaveTextContent(text: string | RegExp): R;
+    }
+  }
 }
+
+export {};
