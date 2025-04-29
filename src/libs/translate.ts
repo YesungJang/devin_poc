@@ -9,21 +9,18 @@ const hasValidApiKey = (process.env.NEXT_PUBLIC_OPENAI_API_KEY && process.env.NE
 
 let mockLanguage: SupportedLanguage = 'ja';
 
+export function setMockLanguage(language: SupportedLanguage) {
+  console.log('Setting mock language to:', language);
+  mockLanguage = language;
+}
+
 const openai = isDev || !hasValidApiKey
   ? {
       chat: {
         completions: {
           create: (params: any) => {
             console.log('Using mock translation data');
-            
-            const systemPrompt = params.messages[0]?.content || '';
-            if (systemPrompt.includes('韓国語')) {
-              mockLanguage = 'ko';
-            } else {
-              mockLanguage = 'ja';
-            }
-            
-            console.log('Selected mock language:', mockLanguage);
+            console.log('Current mock language:', mockLanguage);
             
             const mockTranslations = {
               ja: '当社のエンタープライズクラウドプラットフォームは、現代のビジネスが効率的に業務を拡大するために設計された包括的なSaaSソリューションです。このプラットフォームは、自動化されたワークフロー管理、リアルタイム分析ダッシュボード、既存のツールとの安全なAPI統合など、幅広い機能を提供しています。\n\nサブスクリプションベースのモデルにより、高度なデータ可視化、カスタムレポート作成、専任カスタマーサポートなどのすべてのプレミアム機能にアクセスできます。当社のクラウドコンピューティングインフラストラクチャは、99.9%のアップタイムと堅牢なセキュリティ対策により、お客様の機密データを保護します。\n\nプラットフォームの直感的なダッシュボードでは、主要なパフォーマンス指標を一目で確認し、データに基づいた意思決定を行うことができます。APIドキュメントは包括的で定期的に更新されており、サードパーティサービスとの統合がシームレスです。\n\n多くのフォーチュン500企業がすでに当社のエンタープライズクラウドプラットフォームを導入しており、運用コストの大幅な削減と生産性の向上を実現しています。専任のカスタマーサクセスチームが24時間365日体制でサポートし、サブスクリプションの価値を最大化するお手伝いをします。',
@@ -60,6 +57,10 @@ export async function translateText(
   targetLanguage: SupportedLanguage
 ): Promise<TranslationResult> {
   try {
+    if (isDev || !hasValidApiKey) {
+      setMockLanguage(targetLanguage);
+    }
+    
     const glossary = await loadGlossary();
     
     const languageMap = {
