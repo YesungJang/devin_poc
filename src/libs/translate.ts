@@ -14,6 +14,10 @@ export function setMockLanguage(language: SupportedLanguage) {
   mockLanguage = language;
 }
 
+export function getMockLanguage(): SupportedLanguage {
+  return mockLanguage;
+}
+
 const openai = isDev || !hasValidApiKey
   ? {
       chat: {
